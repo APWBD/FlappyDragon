@@ -1,28 +1,61 @@
-import Dragon from "./Dragon.js";
+import Game from "./Game.js";
 
 export default p5 = new p5(p5 =>
 {
-   let dragon;
+   let game;
+   let frame;
 
    p5.setup = () =>
    {
       p5.createCanvas(1000, 600);
       p5.frameRate(30);
-      dragon = new Dragon();
+      frame = 0;
+      game = new Game();
    }
 
    p5.draw = () =>
    {
+      frame++;
       p5.background(200);
-      dragon.show();
-      dragon.drop();
+      game.dragon.show();
+      game.dragon.move();
+
+      let obstacles = game.obstacles;
+      for (let obstacle of obstacles)
+      {
+         obstacle.show();
+         obstacle.move();
+      }
+
+      if (frame == 30)
+      {
+         game.spawnObstacle();
+         frame = 0;
+      }
+
+      for (let i = obstacles.length; i > 0; i--)
+      {
+         let obj = obstacles[i-1];
+         if (obj.toDelete)
+         {
+            game.obstacles.splice(i-1, 1);
+         }
+      }
+   }
+
+   p5.keyPressed = (e) =>
+   {
+      if (e.key == "ArrowUp")
+      {
+         game.dragon.flap = true;
+      }
    }
 
    p5.keyReleased = (e) =>
    {
       if (e.key == "ArrowUp")
       {
-         dragon.flap();
+         game.dragon.flap = false;
       }
    }
 });

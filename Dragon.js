@@ -9,6 +9,7 @@ export default class Dragon
       this.y = p5.height - this.height - 2;
       this.x = 80;
       this.image = p5.loadImage("dragon.png");
+      this.flap = false;
    }
 
    show()
@@ -16,19 +17,31 @@ export default class Dragon
       p5.image(this.image, this.x, this.y, this.width, this.height);
    }
 
-   flap()
+   move()
    {
-      if (this.y - 100 <= 0)
+      if (this.flap)
+      {
+         this.up();
+      }
+      else
+      {
+         this.down();
+      }
+   }
+
+   up()
+   {
+      if (this.y - 10 <= 0)
       {
          this.y = 0;
       }
       else
       {
-         this.y -= 100;
+         this.y -= 10;
       }
    }
 
-   drop()
+   down()
    {
       if (this.y + this.height + 2 < p5.height)
       {
