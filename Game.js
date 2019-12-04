@@ -8,6 +8,7 @@ export default class Game
    {
       this.dragon = new Dragon();
       this.obstacles = new Array();
+      this.point = 0;
    }
 
    spawnObstacle()
@@ -19,5 +20,10 @@ export default class Game
 
       this.obstacles.push(new Obstacle(p5.width - 100, 40, top, true));
       this.obstacles.push(new Obstacle(p5.width - 100, 40, bottom, false));
+   }
+
+   addPoint()
+   {
+      this.point += 0.5;
    }
 }

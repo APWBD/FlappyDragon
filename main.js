@@ -39,8 +39,14 @@ export default p5 = new p5(p5 =>
          if (obj.toDelete)
          {
             game.obstacles.splice(i-1, 1);
+            game.addPoint();
          }
       }
+
+      p5.textAlign(p5.CENTER);
+      p5.textSize(20);
+      p5.text("Point", p5.width - 100, 50);
+      p5.text(game.point, p5.width - 100, 80);
    }
 
    p5.keyPressed = (e) =>
